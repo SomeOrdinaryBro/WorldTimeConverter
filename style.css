@@ -24,12 +24,15 @@ body {
   justify-content: center;
   gap: 2rem;
   padding: 2rem 5%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   border-bottom: 1px solid var(--divider);
 }
 
 .time-panel {
   flex: 1 1 200px;
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 .city-select {
@@ -40,7 +43,7 @@ body {
   border-radius: 4px;
   font-family: inherit;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .time {
@@ -79,15 +82,24 @@ body {
 
 main {
   padding: 2rem 5%;
+  padding-bottom: 3rem;
 }
 
 .converter-tool h2 {
   margin: 0 0 1rem;
   font-size: 1.75rem;
   font-weight: 600;
+  text-align: center;
 }
 
 .converter-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -126,6 +138,12 @@ button {
   cursor: pointer;
 }
 
+#convert-btn {
+  margin-top: 0.5rem;
+  width: 150px;
+  align-self: center;
+}
+
 button:hover {
   background: var(--accent-hover);
 }
@@ -139,6 +157,19 @@ button:hover {
 }
 
 @media (max-width: 480px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .input-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #convert-btn {
+    width: 100%;
+  }
+
   .hm {
     font-size: 2.2rem;
   }

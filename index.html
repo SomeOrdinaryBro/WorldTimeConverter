@@ -6,42 +6,50 @@
 <title>World Time Converter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Racing+Sans+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Racing+Sans+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js" defer></script>
 <script src="script.js" defer></script>
 </head>
 <body>
-<div class="container">
-<h1>World Time Converter</h1>
-<div class="converter" id="lk-to-us">
-<h2>Sri Lanka → Atlanta</h2>
-        <div class="input-group">
-            <input type="number" id="lk-hours" min="1" max="12" placeholder="HH">
-            <span class="colon">:</span>
-            <input type="number" id="lk-minutes" min="0" max="59" placeholder="MM">
-            <select id="lk-ampm" class="select-time">
-                <option value="AM">AM</option>
-                <option value="PM">PM</option>
-            </select>
-        </div>
-        <button id="convert-lk">Convert</button>
-        <p class="result" id="us-result">Converted time will appear here</p>
-</div>
-<div class="converter" id="us-to-lk">
-<h2>Atlanta → Sri Lanka</h2>
-<div class="input-group">
-    <input type="number" id="us-hours" min="1" max="12" placeholder="HH">
-    <span class="colon">:</span>
-    <input type="number" id="us-minutes" min="0" max="59" placeholder="MM">
-    <select id="us-ampm" class="select-time">
-        <option value="AM">AM</option>
-        <option value="PM">PM</option>
-    </select>
-</div>
-<button id="convert-us">Convert</button>
-<p class="result" id="lk-result">Converted time will appear here</p>
-</div>
-</div>
+  <header class="site-header">
+    <h1>World Time Converter</h1>
+    <p>Quickly convert time between Sri Lanka &amp; Atlanta</p>
+  </header>
+
+  <main>
+    <section class="converter" id="lk-to-us">
+      <h2>Sri Lanka → Atlanta</h2>
+      <div class="input-group">
+        <input type="number" id="lk-hours" min="1" max="12" placeholder="HH">
+        <span class="colon">:</span>
+        <input type="number" id="lk-minutes" min="0" max="59" placeholder="MM">
+        <select id="lk-ampm" class="select-time">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+        <button id="convert-lk" type="button">Convert</button>
+      </div>
+      <p class="result" id="us-result">Converted time will appear here</p>
+    </section>
+
+    <section class="converter" id="us-to-lk">
+      <h2>Atlanta → Sri Lanka</h2>
+      <div class="input-group">
+        <input type="number" id="us-hours" min="1" max="12" placeholder="HH">
+        <span class="colon">:</span>
+        <input type="number" id="us-minutes" min="0" max="59" placeholder="MM">
+        <select id="us-ampm" class="select-time">
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+        <button id="convert-us" type="button">Convert</button>
+      </div>
+      <p class="result" id="lk-result">Converted time will appear here</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2024 World Time Converter</p>
+  </footer>
 </body>
 </html>

@@ -37,16 +37,18 @@
     <section class="converter-tool">
       <h2>Time Converter</h2>
       <div class="converter-fields">
-        <select id="from-city" class="city-select"></select>
-        <input type="number" id="from-hours" min="1" max="12" placeholder="HH">
-        <span class="colon">:</span>
-        <input type="number" id="from-minutes" min="0" max="59" placeholder="MM">
-        <select id="from-ampm" class="ampm-select">
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
-        </select>
-        <span class="arrow">&#8594;</span>
-        <select id="to-city" class="city-select"></select>
+        <div class="input-row">
+          <select id="from-city" class="city-select"></select>
+          <input type="number" id="from-hours" min="1" max="12" placeholder="HH">
+          <span class="colon">:</span>
+          <input type="number" id="from-minutes" min="0" max="59" placeholder="MM">
+          <select id="from-ampm" class="ampm-select">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+          <span class="arrow">&#8594;</span>
+          <select id="to-city" class="city-select"></select>
+        </div>
         <button id="convert-btn" type="button">Convert</button>
       </div>
       <div class="result" id="convert-result"></div>

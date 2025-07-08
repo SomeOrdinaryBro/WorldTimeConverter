@@ -13,25 +13,31 @@
 <h1>World Time Converter</h1>
 <div class="converter" id="lk-to-us">
 <h2>Sri Lanka → Atlanta</h2>
-<div class="input-group">
-<label for="lk-hours">Hours</label>
-<input type="number" id="lk-hours" min="0" max="23" placeholder="HH">
-<label for="lk-minutes">Minutes</label>
-<input type="number" id="lk-minutes" min="0" max="59" placeholder="MM">
-<button id="convert-lk">Convert</button>
-</div>
-<p class="result" id="us-result"></p>
+        <div class="input-group">
+            <input type="number" id="lk-hours" min="1" max="12" placeholder="HH">
+            <span class="colon">:</span>
+            <input type="number" id="lk-minutes" min="0" max="59" placeholder="MM">
+            <select id="lk-ampm">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </div>
+        <button id="convert-lk">Convert</button>
+        <p class="result" id="us-result">Converted time will appear here</p>
 </div>
 <div class="converter" id="us-to-lk">
 <h2>Atlanta → Sri Lanka</h2>
 <div class="input-group">
-<label for="us-hours">Hours</label>
-<input type="number" id="us-hours" min="0" max="23" placeholder="HH">
-<label for="us-minutes">Minutes</label>
-<input type="number" id="us-minutes" min="0" max="59" placeholder="MM">
-<button id="convert-us">Convert</button>
+    <input type="number" id="us-hours" min="1" max="12" placeholder="HH">
+    <span class="colon">:</span>
+    <input type="number" id="us-minutes" min="0" max="59" placeholder="MM">
+    <select id="us-ampm">
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+    </select>
 </div>
-<p class="result" id="lk-result"></p>
+<button id="convert-us">Convert</button>
+<p class="result" id="lk-result">Converted time will appear here</p>
 </div>
 </div>
 </body>

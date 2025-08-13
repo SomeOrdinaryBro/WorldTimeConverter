@@ -1,58 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Time Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <title>Time Converter 🕓</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js" defer></script>
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <header class="dashboard">
-    <div class="time-panel" id="panel1">
-      <select id="city1" class="city-select"></select>
-      <div class="time">
-        <span id="time1-hm" class="hm"></span>
-        <span id="time1-ampm" class="ampm"></span>
-      </div>
-      <div class="date" id="date1"></div>
-      <div class="difference" id="difference"></div>
-    </div>
-    <div class="equal">=</div>
-    <div class="time-panel" id="panel2">
-      <select id="city2" class="city-select"></select>
-      <div class="time">
-        <span id="time2-hm" class="hm"></span>
-        <span id="time2-ampm" class="ampm"></span>
-      </div>
-      <div class="date" id="date2"></div>
-    </div>
-  </header>
+  <div class="wrap">
+    <header>
+      <h1>Time Converter 🕓</h1>
+      <div class="sub">Live clocks + two-way conversion with DST handled. Time zones: Sri Lanka (Asia/Colombo) and Atlanta, GA (America/New_York).</div>
+    </header>
 
-  <main>
-    <section class="converter-tool">
-      <h2>Time Converter</h2>
-      <div class="converter-fields">
-        <div class="input-row">
-          <select id="from-city" class="city-select"></select>
-          <input type="number" id="from-hours" min="1" max="12" placeholder="HH">
-          <span class="colon">:</span>
-          <input type="number" id="from-minutes" min="0" max="59" placeholder="MM">
-          <select id="from-ampm" class="ampm-select">
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-          </select>
-          <span class="arrow">&#8594;</span>
-          <select id="to-city" class="city-select"></select>
+    <section class="grid">
+      <div class="card">
+        <h2>Current Time — Sri Lanka</h2>
+        <div class="now">
+          <div>
+            <div class="title">Colombo</div>
+            <div class="tz">Asia/Colombo (UTC+05:30, no DST)</div>
+          </div>
+          <div class="time" id="now-lk">--:--:--</div>
         </div>
-        <button id="convert-btn" type="button">Convert</button>
       </div>
-      <div class="result" id="convert-result"></div>
+      <div class="card">
+        <h2>Current Time — Atlanta</h2>
+        <div class="now">
+          <div>
+            <div class="title">Atlanta</div>
+            <div class="tz">America/New_York (Eastern Time, DST aware)</div>
+          </div>
+          <div class="time" id="now-atl">--:--:--</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Sri Lanka ➜ Atlanta</h2>
+        <div class="convert">
+          <div class="row">
+            <div class="stack">
+              <label for="lk-date">Date in Sri Lanka</label>
+              <input type="date" id="lk-date">
+            </div>
+            <div class="stack">
+              <label for="lk-time">Time in Sri Lanka</label>
+              <input type="time" id="lk-time" step="60" placeholder="HH:MM">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="lk-now" type="button">Use current SL time</button>
+            <button class="btn primary" id="lk-convert" type="button">Convert</button>
+          </div>
+
+          <div class="out" aria-live="polite">
+            <div><strong>Atlanta time:</strong> <output id="lk-to-atl">—</output></div>
+            <div class="help" id="lk-help">Pick date and time in Sri Lanka, then Convert.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Atlanta ➜ Sri Lanka</h2>
+        <div class="convert">
+          <div class="row">
+            <div class="stack">
+              <label for="atl-date">Date in Atlanta</label>
+              <input type="date" id="atl-date">
+            </div>
+            <div class="stack">
+              <label for="atl-time">Time in Atlanta</label>
+              <input type="time" id="atl-time" step="60" placeholder="HH:MM">
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="atl-now" type="button">Use current ATL time</button>
+            <button class="btn primary" id="atl-convert" type="button">Convert</button>
+          </div>
+
+          <div class="out" aria-live="polite">
+            <div><strong>Sri Lanka time:</strong> <output id="atl-to-lk">—</output></div>
+            <div class="help" id="atl-help">Pick date and time in Atlanta, then Convert.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card span-2">
+        <h2>Notes</h2>
+        <div class="help">
+          • Handles daylight saving in Atlanta automatically. Sri Lanka has no DST.<br>
+          • You can set any date to see historic or future conversions. Good for scheduling.<br>
+          • Parsing is strict 24-hour. Seconds are assumed 00.
+        </div>
+      </div>
     </section>
-  </main>
+
+    <div class="footer">
+      <a href="https://github.com/SomeOrdinaryBro" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        style="color: inherit; text-decoration: none; font-weight: 500; cursor: pointer;">
+        @SomeOrdinaryBro
+      </a>
+    </div>
+
+
+
+  <script src="app.js" defer></script>
 </body>
 </html>

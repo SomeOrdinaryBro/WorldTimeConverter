@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Time Converter 🕓</h1>
-      <div class="sub">Live clocks + two-way conversion with DST handled. Time zones: Sri Lanka (Asia/Colombo) and Atlanta, GA (America/New_York).</div>
-    </header>
+  <header class="site-header">
+    <h1>Time Converter 🕓</h1>
+    <div class="sub">Live clocks + two-way conversion with DST handled. Time zones: Sri Lanka (Asia/Colombo) and Atlanta, GA (America/New_York).</div>
+  </header>
 
+  <div class="wrap">
     <section class="grid">
       <div class="card">
         <h2>Current Time — Sri Lanka</h2>
@@ -34,6 +34,13 @@
             <div class="tz">America/New_York (Eastern Time, DST aware)</div>
           </div>
           <div class="time" id="now-atl">--:--:--</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>DST &amp; Offset</h2>
+        <div class="out">
+          <div id="dst-status">—</div>
+          <div class="help" id="sl-diff">—</div>
         </div>
       </div>
       <div class="card">
@@ -95,17 +102,16 @@
         </div>
       </div>
     </section>
+  </div>
 
-    <div class="footer">
-      <a href="https://github.com/SomeOrdinaryBro" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        style="color: inherit; text-decoration: none; font-weight: 500; cursor: pointer;">
-        @SomeOrdinaryBro
-      </a>
-    </div>
-
-
+  <footer class="site-footer">
+    <a href="https://github.com/SomeOrdinaryBro"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="color: inherit; text-decoration: none; font-weight: 500; cursor: pointer;">
+      @SomeOrdinaryBro
+    </a>
+  </footer>
 
   <script src="app.js" defer></script>
 </body>

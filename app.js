@@ -69,6 +69,28 @@ function formatStampForTZ(ms, tz){
   const d = new Date(ms);
   return fmtFull(tz).format(d);
 }
+
+function updateDstInfo(){
+  const now = new Date();
+  const offsetAtl = getOffsetMinutes(Z_ATL, now);
+  const offsetLk  = getOffsetMinutes(Z_LK, now);
+  const diffMin   = offsetLk - offsetAtl;
+  const ahead     = diffMin >= 0 ? 'ahead of' : 'behind';
+  const abs       = Math.abs(diffMin);
+  const h         = Math.floor(abs / 60);
+  const m         = abs % 60;
+  const timeDiff  = m ? `${h}h ${m}m` : `${h}h`;
+  const diffText  = `Sri Lanka is ${timeDiff} ${ahead} Eastern Time.`;
+
+  const jan = new Date(Date.UTC(now.getUTCFullYear(), 0, 1));
+  const jul = new Date(Date.UTC(now.getUTCFullYear(), 6, 1));
+  const stdOffset = Math.min(getOffsetMinutes(Z_ATL, jan), getOffsetMinutes(Z_ATL, jul));
+  const isDst = offsetAtl !== stdOffset;
+  const dstText = isDst ? 'Eastern Time is observing daylight saving.' : 'Eastern Time is on standard time.';
+
+  document.getElementById('dst-status').textContent = dstText;
+  document.getElementById('sl-diff').textContent = diffText;
+}
 function tick(){
   const now = new Date();
   document.getElementById('now-lk').textContent  = fmtClock(Z_LK).format(now);
@@ -76,6 +98,8 @@ function tick(){
 }
 tick();
 setInterval(tick, 1000);
+updateDstInfo();
+setInterval(updateDstInfo, 60_000);
 const lkDate = document.getElementById('lk-date');
 const lkTime = document.getElementById('lk-time');
 const atlDate = document.getElementById('atl-date');

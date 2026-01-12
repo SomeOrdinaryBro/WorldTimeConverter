@@ -1,0 +1,21 @@
+{
+  "name": "World Time Converter",
+  "short_name": "TimeConv",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1c1c1e",
+  "theme_color": "#1c1c1e",
+  "description": "Enterprise-ready World Time Converter for Colombo and Atlanta.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3239/3239948.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3239/3239948.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

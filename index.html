@@ -1,142 +1,157 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="light dark" />
-  <meta name="description"
-    content="A professional time converter for instant conversion between Sri Lanka (Colombo) and Atlanta (EST/EDT). Features live clocks, deep linking, and DST awareness." />
-  <meta name="theme-color" content="#1c1c1e" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Convert time between Atlanta, GA and Sri Lanka with DST awareness, holiday flags, meeting planner, and quick presets." />
+  <meta name="theme-color" content="#09090f" />
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3239/3239948.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- Open Graph / Enterprise sharing -->
-  <meta property="og:title" content="World Time Converter" />
-  <meta property="og:description" content="Convert time between Colombo and Atlanta with DST awareness." />
-  <meta property="og:type" content="website" />
-
-  <title>Time Converter 🕓</title>
+  <meta property="og:title" content="ATL ↔ LK Time" />
+  <meta property="og:description" content="Convert time between Atlanta and Sri Lanka with DST awareness." />
+  <title>ATL ↔ LK Time</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Time Converter 🕓</h1>
-      <div class="sub">Live clocks + two-way conversion with DST handled. Time zones: Sri Lanka (Asia/Colombo) and
-        Atlanta, GA (America/New_York).</div>
+  <div class="app">
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-brand">
+          <span class="brand-icon">⏱</span>
+          <span class="brand-name">ATL ↔ LK Time</span>
+        </div>
+        <div class="diff-badge" id="time-diff">Loading…</div>
+      </div>
     </header>
 
-    <section class="grid">
-      <div class="card">
-        <h2>Current Time — Sri Lanka</h2>
-        <div class="now">
-          <div>
-            <div class="title">Colombo</div>
-            <div class="tz">Asia/Colombo (UTC+05:30, no DST)</div>
-          </div>
-          <div class="time" id="now-lk">--:--:--</div>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Current Time — Atlanta</h2>
-        <div class="now">
-          <div>
-            <div class="title">Atlanta</div>
-            <div class="tz">America/New_York (Eastern Time, DST aware)</div>
-          </div>
-          <div class="time" id="now-atl">--:--:--</div>
-        </div>
-      </div>
-      <div class="card converter-card">
-        <div class="card-header">
-          <h2>Converter</h2>
-          <div class="header-controls">
-            <!-- Format Toggle -->
-            <div class="toggle-group">
-              <input type="radio" name="fmt" id="fmt-12" value="12" checked>
-              <label for="fmt-12">12h</label>
-              <input type="radio" name="fmt" id="fmt-24" value="24">
-              <label for="fmt-24">24h</label>
-            </div>
+    <main>
 
-            <button class="btn-icon" id="swap-btn" title="Swap direction" aria-label="Swap direction">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8v12M17 20l-4-4M17 20l4-4" />
+      <!-- DST Warning Banner -->
+      <div class="dst-banner" id="dst-banner" hidden></div>
+
+      <!-- Live Clocks -->
+      <section class="clocks-section">
+        <div class="clock-card">
+          <div class="clock-label">Atlanta, GA</div>
+          <div class="clock-time" id="now-atl-time">--:--</div>
+          <div class="clock-date" id="now-atl-date">---</div>
+          <div class="clock-zone" id="now-atl-zone">America/New_York</div>
+        </div>
+        <div class="clock-sep">↔</div>
+        <div class="clock-card">
+          <div class="clock-label">Sri Lanka</div>
+          <div class="clock-time" id="now-lk-time">--:--</div>
+          <div class="clock-date" id="now-lk-date">---</div>
+          <div class="clock-zone" id="now-lk-zone">Asia/Colombo · UTC+5:30</div>
+        </div>
+      </section>
+
+      <!-- Converter -->
+      <section class="card">
+        <div class="card-header">
+          <h2 class="card-title">Converter</h2>
+          <div class="fmt-toggle">
+            <input type="radio" name="fmt" id="fmt-12" value="12" checked>
+            <label for="fmt-12">12h</label>
+            <input type="radio" name="fmt" id="fmt-24" value="24">
+            <label for="fmt-24">24h</label>
+          </div>
+        </div>
+
+        <div class="converter-grid">
+          <div class="conv-side">
+            <div class="conv-city-label" id="from-city">Atlanta</div>
+            <div class="conv-tz-label" id="from-tz">America/New_York</div>
+            <div class="conv-inputs">
+              <input type="date" id="date-in" aria-label="Date">
+              <input type="time" id="time-in" step="60" aria-label="Time">
+            </div>
+          </div>
+
+          <div class="swap-col">
+            <button class="swap-btn" id="swap-btn" title="Swap direction" aria-label="Swap direction">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8v12M17 20l-4-4M17 20l4-4"/>
               </svg>
             </button>
           </div>
-        </div>
 
-        <div class="convert-grid">
-          <!-- From Side -->
-          <div class="side from-side">
-            <div class="header-group">
-              <h3 id="from-city">Colombo</h3>
-              <p class="tz-sub" id="from-tz">Asia/Colombo</p>
-            </div>
-
-            <div class="inputs">
-              <div class="input-row">
-                <input type="date" id="date-in" aria-label="Date">
-                <input type="time" id="time-in" step="60" aria-label="Time">
-              </div>
-              <button class="btn-text" id="use-now" type="button">Reset to Now</button>
-            </div>
-          </div>
-
-          <!-- Divider -->
-          <div class="divider">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" opacity="0.4">
-              <path d="M17 8l4 4m0 0l-4 4m4-4H3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </div>
-
-          <!-- To Side -->
-          <div class="side to-side">
-            <div class="header-group">
-              <h3 id="to-city">Atlanta</h3>
-              <p class="tz-sub" id="to-tz">America/New_York</p>
-            </div>
-
+          <div class="conv-side">
+            <div class="conv-city-label" id="to-city">Sri Lanka</div>
+            <div class="conv-tz-label" id="to-tz">Asia/Colombo</div>
             <div class="result-box">
-              <div class="result-time" id="result-time">--:--</div>
-              <div class="result-date" id="result-date">-- --- ----</div>
-            </div>
-
-            <div class="actions-right">
-              <button class="btn-text" id="copy-link" type="button">
-                <span class="icon">🔗</span> Copy Link
-              </button>
+              <span class="result-time" id="result-time">--:--</span>
+              <div class="result-meta">
+                <span class="result-date" id="result-date"></span>
+                <span class="day-tag" id="result-day-tag"></span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card span-2">
-        <h2>Notes</h2>
-        <div class="help">
-          • Handles daylight saving in Atlanta automatically. Sri Lanka has no DST.<br>
-          • You can set any date to see historic or future conversions. Good for scheduling.<br>
-          • Parsing is strict 24-hour. Seconds are assumed 00.
+
+        <!-- Holiday / weekend warnings -->
+        <div class="result-warnings" id="result-warnings" hidden></div>
+
+        <div class="conv-footer">
+          <button class="btn-ghost" id="use-now" type="button">Reset to Now</button>
+          <div class="conv-footer-right">
+            <button class="btn-ghost" id="copy-result" type="button" disabled>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <span id="copy-result-label">Copy</span>
+            </button>
+            <button class="btn-ghost" id="copy-link" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+              </svg>
+              <span id="copy-link-label">Copy link</span>
+            </button>
+            <button class="btn-ghost" id="copy-teams" type="button" disabled>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+              </svg>
+              <span id="copy-teams-label">Teams</span>
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <div class="footer">
-      <a href="https://github.com/SomeOrdinaryBro" target="_blank" rel="noopener noreferrer"
-        style="color: inherit; text-decoration: none; font-weight: 500; cursor: pointer;">
-        @SomeOrdinaryBro
-      </a>
-    </div>
+      <!-- Quick Presets -->
+      <section class="card">
+        <h2 class="card-title" style="margin-bottom: 12px;">Quick Presets</h2>
+        <div class="presets">
+          <button class="preset-btn" data-preset="now">Now</button>
+          <button class="preset-btn" data-preset="tomorrow-atl">Tomorrow 9 AM · Atlanta</button>
+          <button class="preset-btn" data-preset="tomorrow-lk">Tomorrow 9 AM · Sri Lanka</button>
+          <button class="preset-btn" data-preset="monday-atl">Next Monday 9 AM · Atlanta</button>
+          <button class="preset-btn" data-preset="monday-lk">Next Monday 9 AM · Sri Lanka</button>
+        </div>
+      </section>
 
+      <!-- Meeting Planner -->
+      <section class="card">
+        <h2 class="card-title">Meeting Planner</h2>
+        <p class="card-sub">Work hours: Atlanta 9 AM–5 PM · Sri Lanka 9 AM–6 PM (IST)</p>
+        <div class="mp-today-note" id="mp-today-note" hidden></div>
+        <div class="overlap-summary" id="best-windows"></div>
+        <div class="mp-grid" id="meeting-grid"></div>
+      </section>
 
+    </main>
 
-    <script src="app.js" defer></script>
+    <footer class="footer">
+      DST handled automatically · Holidays for 2025–2026 · No third-party libraries
+    </footer>
+  </div>
+
+  <script src="app.js" defer></script>
 </body>
-
 </html>
